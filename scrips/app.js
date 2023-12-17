@@ -5,31 +5,36 @@ const time = document.querySelector("img.time");
 const icon = document.querySelector(".icon img");
 const forecast = new Forecast();
 
-const updateUI = (data) => {
-  // destructure properties
-  const { cityDets, weather } = data;
-
-  //update details template
+const updateWeatherHtml = (cityDetails, weather) => {
   details.innerHTML = `
-    <h5 class="my-3">${cityDets.EnglishName}</h5>
+    <h5 class="my-3">${cityDetails.EnglishName}</h5>
     <div class="my-3">${weather.WeatherText}</div>
     <div class="display-4 my-4">
       <span>${weather.Temperature.Metric.Value}</span>
       <span>&deg;C</span>
     </div>
   `;
+};
 
-  // update the night/day & icon images
+const updateIcons = (weather) => {
   const iconSrc = `img/icons/${weather.WeatherIcon}.svg`;
   icon.setAttribute("src", iconSrc);
 
-  let timeSrc = weather.IsDayTime ? "img/day.svg" : "img/night.svg";
+  const timeSrc = weather.IsDayTime ? "img/day.svg" : "img/night.svg";
   time.setAttribute("src", timeSrc);
+};
 
-  // remove d-none class if present
+const showCard = () => {
   if (card.classList.contains("d-none")) {
     card.classList.remove("d-none");
   }
+};
+
+const updateUI = (data) => {
+  const { cityDetails, weather } = data;
+  updateWeatherHtml(cityDetails, weather);
+  updateIcons(weather);
+  showCard();
 };
 
 cityForm.addEventListener("submit", e => {

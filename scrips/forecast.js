@@ -6,9 +6,9 @@ class Forecast {
   }
 
   async updateCity(city) {
-    const cityDets = await this.getCity(city);
-    const weather = await this.getWeather(cityDets.Key);
-    return { cityDets, weather };
+    const cityDetails = await this.getCity(city);
+    const weather = await this.getWeather(cityDetails.Key);
+    return { cityDetails, weather };
   }
 
   async getCity(city) {
