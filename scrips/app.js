@@ -38,24 +38,20 @@ const updateUI = (data) => {
 };
 
 cityForm.addEventListener("submit", e => {
-  // prevent default action
   e.preventDefault();
 
-  // get city value
   const city = cityForm.city.value.trim();
   cityForm.reset();
 
-  // update the ui with new city
-  forecast.updateCity(city)
+  forecast.getForecast(city)
     .then(data => updateUI(data))
     .catch(err => console.log(err));
 
-  // set local storage
   localStorage.setItem("city", city);
 });
 
 if (localStorage.getItem("city")) {
-  forecast.updateCity(localStorage.getItem("city"))
+  forecast.getForecast(localStorage.getItem("city"))
     .then(data => updateUI(data))
     .catch(err => console.log(err));
 }

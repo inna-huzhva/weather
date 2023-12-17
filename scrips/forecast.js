@@ -5,7 +5,7 @@ class Forecast {
     this.cityURI = "https://dataservice.accuweather.com/locations/v1/cities/search";
   }
 
-  async updateCity(city) {
+  async getForecast(city) {
     const cityDetails = await this.getCity(city);
     const weather = await this.getWeather(cityDetails.Key);
     return { cityDetails, weather };
